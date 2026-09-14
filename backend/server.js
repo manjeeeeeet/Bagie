@@ -7,6 +7,8 @@ const morgan = require("morgan");
 
 const connectDB = require("./config/db");
 
+const authRoutes = require("./routes/authRoutes");
+
 dotenv.config();
 
 connectDB();
@@ -37,6 +39,12 @@ if (process.env.NODE_ENV === "development") {
 }
 
 /* =========================
+   Routes
+========================= */
+
+app.use("/api/auth", authRoutes);
+
+/* =========================
    Health Check
 ========================= */
 
@@ -44,13 +52,6 @@ app.get("/", (req, res) => {
   res.json({
     success: true,
     message: "Bagie API is running 👜",
-  });
-});
-
-app.get("/api/health", (req, res) => {
-  res.json({
-    success: true,
-    message: "Bagie server is healthy",
   });
 });
 
